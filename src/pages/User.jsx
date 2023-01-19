@@ -10,7 +10,7 @@ import { apiHandler } from './../utils/api-handler';
 function User() {
 	const [form] = Form.useForm();
 	const title = 'User Edit';
-	const [loading, setLoading] = useState(false);
+	const [loading, _setLoading] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const [resultEdit, setResultEdit] = useState({});
@@ -61,7 +61,7 @@ function User() {
 		await handleFinishSubmit();
 	};
 
-	const handleDelete = (record) => {};
+	const handleDelete = (_record) => {};
 
 	const handleTableChange = (pagination, _filters, _sorter) => {
 		setParams({

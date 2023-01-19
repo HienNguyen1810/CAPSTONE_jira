@@ -12,6 +12,7 @@ import {
 	Select,
 } from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
+import { omit } from 'lodash';
 import {
 	createTask,
 	getProjectDetail,
@@ -27,7 +28,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 	const [formInstant] = Form.useForm();
 
 	const [open, setOpen] = useState(false);
-	const [placement, setPlacement] = useState('right');
+	const [placement, _setPlacement] = useState('right');
 	const [contentEditor, setContentEditor] = useState('');
 
 	const taskTypeSelector = useSelector(taskType);
@@ -49,7 +50,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 		setOpen(false);
 	};
 
-	const handleEditorChange = (content, editor) => {
+	const handleEditorChange = (content, _editor) => {
 		setContentEditor(content);
 	};
 
@@ -66,15 +67,14 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 			});
 			return;
 		}
-		const { projectName, ...restFormValue } = value;
 		const params = {
-			...restFormValue,
+			...omit(value, ['projectName']),
 			projectId: projectDetailSelector.id,
 			description: contentEditor,
 		};
 		dispatch(createTask(params))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				notification.success({ message: 'Create Task successfully!' });
 				dispatch(getProjectDetail(projectDetailSelector.id))
 					.unwrap()
@@ -83,7 +83,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 						setOpen(false);
 						formInstant.resetFields();
 					})
-					.catch((error) => {});
+					.catch((_error) => {});
 			})
 			.catch((error) => {
 				notification.error({
@@ -161,7 +161,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 										placeholder="Select select status for project"
 										allowClear
 									>
-										{taskStatusSelector?.map((item, idx) => {
+										{taskStatusSelector?.map((item, _idx) => {
 											return (
 												<Option key={item.statusId} value={item.statusId}>
 													{item.statusName}
@@ -183,7 +183,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 									]}
 								>
 									<Select placeholder="Select Priority for project" allowClear>
-										{taskPrioritySelector?.map((item, idx) => {
+										{taskPrioritySelector?.map((item, _idx) => {
 											return (
 												<Option key={item.priorityId} value={item.priorityId}>
 													{item.priority}
@@ -205,7 +205,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 									]}
 								>
 									<Select placeholder="Select task type for project" allowClear>
-										{taskTypeSelector?.map((item, idx) => {
+										{taskTypeSelector?.map((item, _idx) => {
 											return (
 												<Option key={item.id} value={item.id}>
 													{item.taskType}
@@ -231,7 +231,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 										placeholder="Select task type for project"
 										allowClear
 									>
-										{projectDetailSelector?.members?.map((item, idx) => {
+										{projectDetailSelector?.members?.map((item, _idx) => {
 											return (
 												<Option key={item.userId} value={item.userId}>
 													{item.name}

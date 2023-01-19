@@ -29,7 +29,7 @@ export const EditDeleteProject = ({ record }) => {
 		}
 		dispatch(deleteProjectApi(id))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				dispatch(getProjectList());
 			})
 			.catch((error) => {
@@ -64,7 +64,7 @@ export const EditDeleteProject = ({ record }) => {
 	const onClose = () => {
 		setOpen(false);
 	};
-	const handleEditorChange = (content, editor) => {
+	const handleEditorChange = (content, _editor) => {
 		setContentEditor(content);
 	};
 
@@ -80,7 +80,7 @@ export const EditDeleteProject = ({ record }) => {
 
 		dispatch(updateProjectDetail(params))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				dispatch(getProjectList());
 				onClose();
 				notification.success({ message: 'Edit Project successfully!' });

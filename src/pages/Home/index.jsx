@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Avatar, Row } from 'antd';
+import { Avatar } from 'antd';
 import { Tooltip } from 'antd';
 import Board from './components/Board';
 import { PopupCreaTask } from './components/PopupCreaTask';
@@ -29,7 +29,7 @@ const Home = () => {
 			.then((originalPromiseResult) => {
 				dispatch(setProjectDetail(originalPromiseResult));
 			})
-			.catch((error) => {});
+			.catch((_error) => {});
 	}, [id]);
 	return (
 		<>

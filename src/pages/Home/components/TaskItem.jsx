@@ -49,14 +49,14 @@ const TaskItem = (props) => {
 		e.stopPropagation();
 		dispatch(removeTask(item?.taskId))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				notification.success({ message: 'Remove Task successfully!' });
 				dispatch(getProjectDetail(item.projectId))
 					.unwrap()
 					.then((originalPromiseResult) => {
 						dispatch(setProjectDetail(originalPromiseResult));
 					})
-					.catch((error) => {});
+					.catch((_error) => {});
 			})
 			.catch((error) => {
 				notification.error({
@@ -109,7 +109,7 @@ const TaskItem = (props) => {
 
 		dispatch(updateTask(mappingValue))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				// dispatch(getTaskDetail(item?.taskId));
 				dispatch(getProjectDetail(projectDetailSelector.id))
 					.unwrap()
@@ -135,7 +135,7 @@ const TaskItem = (props) => {
 		setIsModalOpen(false);
 	};
 
-	const handleEditorChange = (content, editor) => {
+	const handleEditorChange = (content, _editor) => {
 		setContentEditor(content);
 	};
 	const changeTimeSpent = (value) => {
@@ -249,7 +249,7 @@ const TaskItem = (props) => {
 									placeholder="Select task type for project"
 									allowClear
 								>
-									{projectDetailSelector.members?.map((item, idx) => {
+									{projectDetailSelector.members?.map((item, _idx) => {
 										return (
 											<Option key={item.userId} value={item.userId}>
 												{item.name}
@@ -271,7 +271,7 @@ const TaskItem = (props) => {
 								]}
 							>
 								<Select placeholder="Select task status for project" allowClear>
-									{taskStatusSelector?.map((item, idx) => {
+									{taskStatusSelector?.map((item, _idx) => {
 										return (
 											<Option key={item.statusId} value={item.statusId}>
 												{item.statusName}
@@ -293,7 +293,7 @@ const TaskItem = (props) => {
 								]}
 							>
 								<Select placeholder="Select Priority for project" allowClear>
-									{taskPrioritySelector?.map((item, idx) => {
+									{taskPrioritySelector?.map((item, _idx) => {
 										return (
 											<Option key={item.priorityId} value={item.priorityId}>
 												{item.priority}
@@ -315,7 +315,7 @@ const TaskItem = (props) => {
 								]}
 							>
 								<Select placeholder="Select task type for project" allowClear>
-									{taskTypeSelector?.map((item, idx) => {
+									{taskTypeSelector?.map((item, _idx) => {
 										return (
 											<Option key={item.id} value={item.id}>
 												{item.taskType}

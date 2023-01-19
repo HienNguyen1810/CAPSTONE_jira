@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Input, Table, Tag } from 'antd';
+import { Table, Tag } from 'antd';
 import { projectListMapping } from '../../../redux/features/projectSlice';
 import AssignUser from './AssignUser';
 import { EditDeleteProject } from './EditDeleteProject';

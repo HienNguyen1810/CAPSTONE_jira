@@ -54,7 +54,7 @@ const Board = ({ projectDetailSelector }) => {
 
 			dispatch(updateStatus(value))
 				.unwrap()
-				.then((originalPromiseResult) => {
+				.then((_originalPromiseResult) => {
 					dispatch(getProjectDetail(projectDetailSelector.id))
 						.unwrap()
 						.then((originalPromiseResult) => {
@@ -85,7 +85,7 @@ const Board = ({ projectDetailSelector }) => {
 						>
 							<h3 className="my-4 font-semibold">{item.statusName}</h3>
 							<Droppable droppableId={item?.statusId}>
-								{(provided, snapshot) => (
+								{(provided, _snapshot) => (
 									<div ref={provided.innerRef} {...provided.droppableProps}>
 										<TaskList lstTaskDeTail={item?.lstTaskDeTail} index={idx} />
 										{provided.placeholder}

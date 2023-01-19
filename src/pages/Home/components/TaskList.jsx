@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import TaskItem from './TaskItem';
 
-const TaskList = ({ lstTaskDeTail, index }) => {
+const TaskList = ({ lstTaskDeTail }) => {
 	return (
 		<div className="flex flex-col gap-4 items-stretch overflow-y-auto h-[400px] pr-4">
 			{lstTaskDeTail?.map((item, idx) => {
@@ -12,7 +12,7 @@ const TaskList = ({ lstTaskDeTail, index }) => {
 						draggableId={item?.taskId?.toString()}
 						index={idx}
 					>
-						{(provided, snapshot) => (
+						{(provided, _snapshot) => (
 							<div
 								{...provided.draggableProps}
 								{...provided.dragHandleProps}

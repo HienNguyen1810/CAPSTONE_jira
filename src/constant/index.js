@@ -14,7 +14,9 @@ export const getColumns = () => {
 			title: 'image',
 			dataIndex: 'image',
 			width: 120,
-			render: (img) => <img className="w-[85px] object-cover" src={img} />,
+			render: (img, record) => (
+				<img className="w-[85px] object-cover" src={img} alt={record.id} />
+			),
 		},
 		{
 			key: 'name',
@@ -39,7 +41,7 @@ export const getColumns = () => {
 			key: 'quantity',
 			title: 'quantity',
 			dataIndex: 'quantity',
-			render: (number, data) => {
+			render: (number, _data) => {
 				return <p>{number}</p>;
 			},
 		},

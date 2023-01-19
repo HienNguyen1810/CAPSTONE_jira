@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppLayout } from './pages/AppLayout';
 import CheckLogin from './pages/CheckLogin';
@@ -33,7 +33,7 @@ function App() {
 					<Route path="create-project" element={<CreateProject />} />
 				</Route>
 			</Route>
-			
+
 			<Route element={<ProtectedRoute />}>
 				<Route path="/" element={<AppLayout />}>
 					<Route index element={<ProjectManagement />} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Divider, Tooltip } from 'antd';
+import { Avatar, Tooltip } from 'antd';
 import { Popover } from 'antd';
 import { AutoComplete } from 'antd';
 import { notification } from 'antd';
@@ -28,7 +28,7 @@ const AssignUser = ({ members, projectId }) => {
 					backgroundColor: '#fde3cf',
 				}}
 			>
-				{members.map((item, idx) => {
+				{members.map((item, _idx) => {
 					return (
 						<Popover
 							placement="bottom"
@@ -72,7 +72,7 @@ const MemberListPopover = ({ members, projectId }) => {
 	const removeUser = (userId) => {
 		dispatch(removeUserFromProject({ projectId, userId }))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				dispatch(fetchUserByProjectId(projectId));
 				dispatch(getProjectList());
 			})
@@ -82,7 +82,7 @@ const MemberListPopover = ({ members, projectId }) => {
 				});
 			});
 	};
-	return members.map((item, idx) => {
+	return members.map((item, _idx) => {
 		return (
 			<div className="flex justify-between items-center mb-4" key={item.userId}>
 				<Tooltip
@@ -118,7 +118,7 @@ const MemberListAssign = ({ projectId }) => {
 	const handleSelect = (value, option) => {
 		dispatch(assignUser({ projectId, userId: option.userId }))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				dispatch(fetchUserByProjectId(projectId));
 				dispatch(getProjectList());
 			})

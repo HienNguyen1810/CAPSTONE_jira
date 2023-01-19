@@ -11,7 +11,7 @@ const Register = () => {
 
 	const [_isLoading, setIsLoading] = useState(false);
 
-	const successCallback = (values) => {
+	const successCallback = (_values) => {
 		setIsLoading(false);
 
 		navigate('/login', { replace: true });

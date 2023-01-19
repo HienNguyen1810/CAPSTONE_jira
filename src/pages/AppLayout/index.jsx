@@ -7,7 +7,7 @@ import { getProjectCategory } from '../../redux/features/projectSlice';
 import { Header } from './Header';
 import SidebarLeft from './SidebarLeft';
 
-export const AppLayout = (props) => {
+export const AppLayout = (_props) => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getProjectCategory());

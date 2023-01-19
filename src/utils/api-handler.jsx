@@ -13,7 +13,7 @@ export const apiHandler = async (args) => {
 		failCallback,
 		onFinally,
 		skipNotification,
-		isReturnResponse,
+		_isReturnResponse,
 	} = args;
 	try {
 		const response = await service;

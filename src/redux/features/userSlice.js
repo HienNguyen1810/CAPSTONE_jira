@@ -3,7 +3,7 @@ import userService from '../../apis/userApi';
 
 export const getUserSearchKey = createAsyncThunk(
 	'user/get-user-search-key',
-	async (value, { signal, rejectWithValue }) => {
+	async (value, { rejectWithValue }) => {
 		try {
 			const response = await userService.getUserByKeyword(value);
 			return response.data.content;
@@ -15,7 +15,7 @@ export const getUserSearchKey = createAsyncThunk(
 
 export const fetchUserByProjectId = createAsyncThunk(
 	'user/fetch-user-by-project-id',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { _signal, _dispatch, rejectWithValue }) => {
 		try {
 			const response = await userService.getUserByProId(params);
 			return response.data.content;
@@ -34,7 +34,7 @@ export const userSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getUserSearchKey.pending, (state, action) => {
+			.addCase(getUserSearchKey.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getUserSearchKey.fulfilled, (state, action) => {

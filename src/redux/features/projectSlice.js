@@ -4,7 +4,7 @@ import projectService from '../../apis/projectApi';
 
 export const getProjectCategory = createAsyncThunk(
 	'project/get-project-category',
-	async (_, { signal }) => {
+	async (_, { rejectWithValue }) => {
 		try {
 			const response = await projectService.projectCategory('');
 			return response.data.content;
@@ -16,7 +16,7 @@ export const getProjectCategory = createAsyncThunk(
 
 export const getProjectList = createAsyncThunk(
 	'project/get-project-list',
-	async (params, { signal }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.getAllProject(params);
 			return response.data.content;
@@ -28,7 +28,7 @@ export const getProjectList = createAsyncThunk(
 
 export const createProject = createAsyncThunk(
 	'project/create-project',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.createProject(params);
 			return response.data.content;
@@ -40,7 +40,7 @@ export const createProject = createAsyncThunk(
 
 export const getProjectDetail = createAsyncThunk(
 	'project/get-project-detail',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.getProjectDetail(params);
 			return response.data.content;
@@ -52,7 +52,7 @@ export const getProjectDetail = createAsyncThunk(
 
 export const assignUser = createAsyncThunk(
 	'project/assign-user',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.assignUserToProject(params);
 			return response.data.content;
@@ -64,7 +64,7 @@ export const assignUser = createAsyncThunk(
 
 export const removeUserFromProject = createAsyncThunk(
 	'project/remove-user-from-project',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.removeUserFromProject(params);
 			return response.data.content;
@@ -76,7 +76,7 @@ export const removeUserFromProject = createAsyncThunk(
 
 export const deleteProjectApi = createAsyncThunk(
 	'project/remove-project',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.deleteProject(params);
 			return response.data.content;
@@ -88,7 +88,7 @@ export const deleteProjectApi = createAsyncThunk(
 
 export const updateProjectDetail = createAsyncThunk(
 	'project/update-project-detail',
-	async (params, { signal, dispatch, rejectWithValue }) => {
+	async (params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.updateProject(params);
 			return response.data.content;
@@ -100,7 +100,7 @@ export const updateProjectDetail = createAsyncThunk(
 
 export const getAllStatus = createAsyncThunk(
 	'project/get-all-status',
-	async (params, { rejectWithValue }) => {
+	async (_params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.getAllStatus();
 			return response.data.content;
@@ -112,7 +112,7 @@ export const getAllStatus = createAsyncThunk(
 
 export const getAllPriority = createAsyncThunk(
 	'project/get-all-priority',
-	async (params, { rejectWithValue }) => {
+	async (_params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.getAllPriority();
 			return response.data.content;
@@ -124,7 +124,7 @@ export const getAllPriority = createAsyncThunk(
 
 export const getTaskType = createAsyncThunk(
 	'project/get-task-type',
-	async (params, { rejectWithValue }) => {
+	async (_params, { rejectWithValue }) => {
 		try {
 			const response = await projectService.getAllTaskType();
 			return response.data.content;
@@ -213,42 +213,42 @@ export const projectSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getProjectCategory.pending, (state, action) => {
+			.addCase(getProjectCategory.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getProjectCategory.fulfilled, (state, action) => {
 				state.projectCategory = action.payload;
 				state.status = 'idle';
 			})
-			.addCase(getProjectList.pending, (state, action) => {
+			.addCase(getProjectList.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getProjectList.fulfilled, (state, action) => {
 				state.projectList = action.payload;
 				state.status = 'idle';
 			})
-			.addCase(getAllStatus.pending, (state, action) => {
+			.addCase(getAllStatus.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getAllStatus.fulfilled, (state, action) => {
 				state.taskStatus = action.payload;
 				state.status = 'idle';
 			})
-			.addCase(getAllPriority.pending, (state, action) => {
+			.addCase(getAllPriority.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getAllPriority.fulfilled, (state, action) => {
 				state.taskPriority = action.payload;
 				state.status = 'idle';
 			})
-			.addCase(getTaskType.pending, (state, action) => {
+			.addCase(getTaskType.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getTaskType.fulfilled, (state, action) => {
 				state.taskType = action.payload;
 				state.status = 'idle';
 			})
-			.addCase(getTaskDetail.pending, (state, action) => {
+			.addCase(getTaskDetail.pending, (state, _action) => {
 				state.status = 'loading';
 			})
 			.addCase(getTaskDetail.fulfilled, (state, action) => {

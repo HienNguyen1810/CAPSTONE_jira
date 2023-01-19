@@ -3,10 +3,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Form, Input, notification, Row, Select } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { Editor } from '@tinymce/tinymce-react';
 import { projectCategory } from '../../redux/features/projectSlice';
-import { createProject } from './../../redux/features/projectSlice';
+import { createProject } from '../../redux/features/projectSlice';
 
 const { Option } = Select;
 
@@ -14,22 +13,14 @@ const CreateProject = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [contentEditor, setContentEditor] = useState('');
-	const handleEditorChange = (content, editor) => {
+	const handleEditorChange = (content, _editor) => {
 		setContentEditor(content);
 	};
 	const cateSelector = useSelector(projectCategory);
-	const antIcon = (
-		<LoadingOutlined
-			style={{
-				fontSize: 20,
-			}}
-			spin
-		/>
-	);
 	const submitForm = (value) => {
 		dispatch(createProject({ ...value, description: contentEditor }))
 			.unwrap()
-			.then((originalPromiseResult) => {
+			.then((_originalPromiseResult) => {
 				notification.success({ message: 'Create Project successfully!' });
 				navigate('/', { replace: true });
 			})

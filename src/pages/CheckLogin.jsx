@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import LoadingPage from '../components/LoadingPage';
 
