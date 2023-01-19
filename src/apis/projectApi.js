@@ -14,7 +14,7 @@ const projectService = {
 	getAllProject: (name) => {
 		return axiosClient.get(`Project/getAllProject`, {
 			params: {
-				...(!isNil(name) && !isEmpty(name) && { keyword: name }),
+				...(!isNil(name) && !isEmpty(name) && { keyword: name.trim() }),
 			},
 		});
 	},
