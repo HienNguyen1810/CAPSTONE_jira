@@ -1,0 +1,52 @@
+{
+	"name": "airbnb-admin",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@ant-design/icons": "^4.7.0",
+		"@reduxjs/toolkit": "^1.9.1",
+		"@tinymce/tinymce-react": "^4.2.0",
+		"antd": "^4.24.2",
+		"axios": "^1.1.3",
+		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
+		"react": "^18.2.0",
+		"react-beautiful-dnd": "^13.1.1",
+		"react-dom": "^18.2.0",
+		"react-facebook-login": "^4.1.1",
+		"react-icons": "^4.6.0",
+		"react-redux": "^8.0.5",
+		"react-router-dom": "^6.4.3",
+		"react-slick": "^0.29.0",
+		"redux": "^4.2.0",
+		"slick-carousel": "^1.8.1"
+	},
+	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^3.4.0",
+		"@types/react": "^18.0.24",
+		"@types/react-dom": "^18.0.8",
+		"@vitejs/plugin-react": "^2.2.0",
+		"autoprefixer": "^10.4.13",
+		"eslint": "^8.27.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-react-app": "^7.0.1",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
+		"less": "^4.1.3",
+		"postcss": "^8.4.19",
+		"prettier": "^2.7.1",
+		"tailwindcss": "^3.2.4",
+		"vite": "^3.2.3",
+		"vite-plugin-imp": "^2.3.1",
+		"vite-plugin-mkcert": "^1.10.1"
+	}
+}
