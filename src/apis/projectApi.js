@@ -1,3 +1,4 @@
+import { isEmpty, isNil } from 'lodash';
 import axiosClient from './axiosClient';
 
 const projectService = {
@@ -10,8 +11,12 @@ const projectService = {
 	getProjectDetail: (data) => {
 		return axiosClient.get(`Project/getProjectDetail?id=${data}`);
 	},
-	getAllProject: (data) => {
-		return axiosClient.get('Project/getAllProject', data);
+	getAllProject: (name) => {
+		return axiosClient.get(`Project/getAllProject`, {
+			params: {
+				...(!isNil(name) && !isEmpty(name) && { keyword: name }),
+			},
+		});
 	},
 	getAllTaskType: () => {
 		return axiosClient.get('TaskType/getAll');

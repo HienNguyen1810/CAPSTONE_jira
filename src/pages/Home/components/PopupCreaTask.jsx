@@ -46,6 +46,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 		});
 		setOpen(true);
 	};
+
 	const onClose = () => {
 		setOpen(false);
 	};
@@ -109,10 +110,11 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 
 		formInstant.setFieldsValue({ timeTrackingRemaining: timeRemaining });
 	};
+
 	return (
 		<>
 			<button
-				className="text-white bg-[#0a00b6] h-18 w-40 justify-center flex items-center text-base font-medium py-3 px-7 rounded-full active:scale-95 transition-all ease-in duration-150 ml-auto"
+				className="text-white bg-[#0a00b6] h-18 w-40 justify-center flex items-center text-base font-medium py-3 px-7 rounded-full active:scale-95 transition-all ease-in duration-150 ml-auto hover:border-[#0a00b6] hover:bg-white hover:text-[#0a00b6] border-2"
 				onClick={showDrawer}
 			>
 				Create Task

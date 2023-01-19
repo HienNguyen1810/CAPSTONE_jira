@@ -7,7 +7,7 @@ const LinkProjectDetail = ({ value }) => {
 	const redirectDetailProject = () => {
 		const idUser = JSON.parse(localStorage.getItem('idUser'));
 		if (value.members?.length === 0) {
-			notification.warning({ message: 'Please assign usser!' });
+			notification.warning({ message: 'Please assign user!' });
 			return;
 		}
 		const userIdList = value.members.map((item) => item.userId.toString());
@@ -15,7 +15,7 @@ const LinkProjectDetail = ({ value }) => {
 			navigate(`/project-detail/${value.id}`);
 		} else {
 			if (!userIdList.includes(idUser.toString())) {
-				notification.error({ message: 'User is unthorization!' });
+				notification.error({ message: 'User is unAuthorization!' });
 				return;
 			} else {
 				navigate(`/project-detail/${value.id}`);

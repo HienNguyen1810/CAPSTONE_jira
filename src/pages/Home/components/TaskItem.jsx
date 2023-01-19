@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { BiTrash } from 'react-icons/bi';
+import { BsLink45Deg } from 'react-icons/bs';
+import { SiMinutemailer } from 'react-icons/si';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	Avatar,
@@ -45,6 +47,7 @@ const TaskItem = (props) => {
 	const timeOriginWatching = Form.useWatch('originalEstimate', formInstant);
 
 	const dispatch = useDispatch();
+
 	const deleteTask = (e) => {
 		e.stopPropagation();
 		dispatch(removeTask(item?.taskId))
@@ -86,6 +89,7 @@ const TaskItem = (props) => {
 			});
 		setIsModalOpen(true);
 	};
+
 	const handleOk = () => {
 		const value = formInstant.getFieldsValue();
 		if (timeOriginWatching - timeSpentWatching <= 0) {
@@ -131,6 +135,7 @@ const TaskItem = (props) => {
 				});
 			});
 	};
+
 	const handleCancel = () => {
 		setIsModalOpen(false);
 	};
@@ -138,6 +143,7 @@ const TaskItem = (props) => {
 	const handleEditorChange = (content, _editor) => {
 		setContentEditor(content);
 	};
+
 	const changeTimeSpent = (value) => {
 		if (value === 0) {
 			notification.error({
@@ -155,6 +161,20 @@ const TaskItem = (props) => {
 
 		formInstant.setFieldsValue({ timeTrackingRemaining: timeRemaining });
 	};
+
+	const titleModal = (
+		<div className="flex items-center justify-between">
+			<h3>Edit Task</h3>
+			<div className="flex items-center gap-4 mr-10">
+				<div className="text-xs flex items-center gap-2">
+					<SiMinutemailer /> <span>Give Feedback</span>
+				</div>
+				<div className="text-xs flex items-center gap-2">
+					<BsLink45Deg /> Copy Link
+				</div>
+			</div>
+		</div>
+	);
 	return (
 		<>
 			<div
@@ -200,17 +220,18 @@ const TaskItem = (props) => {
 			</div>
 			<Modal
 				className="modal-edit-task"
-				title="Edit Task"
+				title={titleModal}
 				open={isModalOpen}
 				onCancel={handleCancel}
 				bodyStyle={{
+					width: '100%',
 					height: '450px',
 					overflow: 'auto',
 				}}
 				footer={[
 					<button
 						key="submit"
-						className="text-white bg-[#0a00b6] h-18 w-24 justify-center flex items-center text-xs font-medium py-2 px-0 rounded-full active:scale-95 transition-all ease-in duration-150 mt-6"
+						className="text-white bg-[#0a00b6] h-18 w-24 justify-center flex items-center text-xs font-medium py-2 px-0 rounded-full active:scale-95 transition-all ease-in duration-150 mt-6 hover:border-[#0a00b6] hover:bg-white hover:text-[#0a00b6] border-2"
 						onClick={handleOk}
 					>
 						Submit
@@ -220,90 +241,6 @@ const TaskItem = (props) => {
 				<Form layout="vertical" form={formInstant}>
 					<Row gutter={[16, 4]}>
 						<Col span={12}>
-							<Form.Item
-								label="Task Name"
-								name="taskName"
-								rules={[
-									{
-										required: true,
-										message: 'Please input your task name!',
-									},
-								]}
-							>
-								<Input />
-							</Form.Item>
-						</Col>
-						<Col span={12}>
-							<Form.Item
-								label="Assignees"
-								name="listUserAsign"
-								rules={[
-									{
-										required: true,
-										message: 'Please assign user!',
-									},
-								]}
-							>
-								<Select
-									mode="multiple"
-									placeholder="Select task type for project"
-									allowClear
-								>
-									{projectDetailSelector.members?.map((item, _idx) => {
-										return (
-											<Option key={item.userId} value={item.userId}>
-												{item.name}
-											</Option>
-										);
-									})}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col span={8}>
-							<Form.Item
-								label="Status"
-								name="statusId"
-								rules={[
-									{
-										required: true,
-										message: 'Please input your status!',
-									},
-								]}
-							>
-								<Select placeholder="Select task status for project" allowClear>
-									{taskStatusSelector?.map((item, _idx) => {
-										return (
-											<Option key={item.statusId} value={item.statusId}>
-												{item.statusName}
-											</Option>
-										);
-									})}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col span={8}>
-							<Form.Item
-								label="Priority"
-								name="priorityId"
-								rules={[
-									{
-										required: true,
-										message: 'Please select your priority!',
-									},
-								]}
-							>
-								<Select placeholder="Select Priority for project" allowClear>
-									{taskPrioritySelector?.map((item, _idx) => {
-										return (
-											<Option key={item.priorityId} value={item.priorityId}>
-												{item.priority}
-											</Option>
-										);
-									})}
-								</Select>
-							</Form.Item>
-						</Col>
-						<Col span={8}>
 							<Form.Item
 								label="Task Type"
 								name="typeId"
@@ -324,59 +261,12 @@ const TaskItem = (props) => {
 									})}
 								</Select>
 							</Form.Item>
-						</Col>
 
-						<Col span={8}>
-							<Form.Item
-								label="Original Estimate"
-								name="originalEstimate"
-								rules={[
-									{
-										required: true,
-										message: 'Please estimate your project!',
-									},
-								]}
-							>
-								<InputNumber style={{ width: '100%' }} />
-							</Form.Item>
-						</Col>
-						<Col span={8}>
-							<Form.Item
-								label="Time spent"
-								name="timeTrackingSpent"
-								rules={[
-									{
-										required: true,
-										message: 'Please input time spent!',
-									},
-								]}
-							>
-								<InputNumber
-									style={{ width: '100%' }}
-									onChange={changeTimeSpent}
-								/>
-							</Form.Item>
-						</Col>
-						<Col span={8}>
-							<Form.Item
-								label="Time remaining"
-								name="timeTrackingRemaining"
-								rules={[
-									{
-										required: true,
-										message: 'Please input time remaining!',
-									},
-								]}
-							>
-								<InputNumber style={{ width: '100%' }} />
-							</Form.Item>
-						</Col>
-						<Col span={24}>
 							<Editor
 								value={contentEditor}
 								name="description"
 								init={{
-									height: 200,
+									height: 320,
 									menubar: false,
 									plugins: [
 										'advlist autolink lists link image charmap print preview anchor',
@@ -393,6 +283,146 @@ const TaskItem = (props) => {
 								}}
 								onEditorChange={handleEditorChange}
 							/>
+						</Col>
+						<Col span={12}>
+							<Row gutter={[16, 2]}>
+								<Col span={24}>
+									<Form.Item
+										label="Task Name"
+										name="taskName"
+										rules={[
+											{
+												required: true,
+												message: 'Please input your task name!',
+											},
+										]}
+									>
+										<Input />
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										label="Assignees"
+										name="listUserAsign"
+										rules={[
+											{
+												required: true,
+												message: 'Please assign user!',
+											},
+										]}
+									>
+										<Select
+											mode="multiple"
+											placeholder="Select task type for project"
+											allowClear
+										>
+											{projectDetailSelector.members?.map((item, _idx) => {
+												return (
+													<Option key={item.userId} value={item.userId}>
+														{item.name}
+													</Option>
+												);
+											})}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										label="Status"
+										name="statusId"
+										rules={[
+											{
+												required: true,
+												message: 'Please input your status!',
+											},
+										]}
+									>
+										<Select
+											placeholder="Select task status for project"
+											allowClear
+										>
+											{taskStatusSelector?.map((item, _idx) => {
+												return (
+													<Option key={item.statusId} value={item.statusId}>
+														{item.statusName}
+													</Option>
+												);
+											})}
+										</Select>
+									</Form.Item>
+								</Col>
+								<Col span={24}>
+									<Form.Item
+										label="Priority"
+										name="priorityId"
+										rules={[
+											{
+												required: true,
+												message: 'Please select your priority!',
+											},
+										]}
+									>
+										<Select
+											placeholder="Select Priority for project"
+											allowClear
+										>
+											{taskPrioritySelector?.map((item, _idx) => {
+												return (
+													<Option key={item.priorityId} value={item.priorityId}>
+														{item.priority}
+													</Option>
+												);
+											})}
+										</Select>
+									</Form.Item>
+								</Col>
+
+								<Col span={24}>
+									<Form.Item
+										label="Original Estimate"
+										name="originalEstimate"
+										rules={[
+											{
+												required: true,
+												message: 'Please estimate your project!',
+											},
+										]}
+									>
+										<InputNumber style={{ width: '100%' }} />
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										label="Time spent"
+										name="timeTrackingSpent"
+										rules={[
+											{
+												required: true,
+												message: 'Please input time spent!',
+											},
+										]}
+									>
+										<InputNumber
+											style={{ width: '100%' }}
+											onChange={changeTimeSpent}
+										/>
+									</Form.Item>
+								</Col>
+								<Col span={12}>
+									<Form.Item
+										label="Time remaining"
+										name="timeTrackingRemaining"
+										rules={[
+											{
+												required: true,
+												message: 'Please input time remaining!',
+											},
+										]}
+									>
+										<InputNumber style={{ width: '100%' }} />
+									</Form.Item>
+								</Col>
+							</Row>
 						</Col>
 					</Row>
 				</Form>

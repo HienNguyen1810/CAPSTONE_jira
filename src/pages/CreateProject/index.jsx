@@ -98,7 +98,7 @@ const CreateProject = () => {
 					}}
 					onEditorChange={handleEditorChange}
 				/>
-				<button className="text-white bg-[#0a00b6] h-18 w-32 justify-center flex items-center text-base font-medium py-3 px-7 rounded-full active:scale-95 transition-all ease-in duration-150 mt-6">
+				<button className="text-white bg-[#0a00b6] h-18 w-32 justify-center flex items-center text-base font-medium py-3 px-7 rounded-full active:scale-95 transition-all ease-in duration-150 mt-6 hover:border-[#0a00b6] hover:bg-white hover:text-[#0a00b6] border-2">
 					Create
 				</button>
 			</Form>

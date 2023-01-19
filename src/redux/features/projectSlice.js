@@ -17,8 +17,9 @@ export const getProjectCategory = createAsyncThunk(
 export const getProjectList = createAsyncThunk(
 	'project/get-project-list',
 	async (params, { rejectWithValue }) => {
+		const value = params || '';
 		try {
-			const response = await projectService.getAllProject(params);
+			const response = await projectService.getAllProject(value);
 			return response.data.content;
 		} catch (error) {
 			return rejectWithValue(error);
