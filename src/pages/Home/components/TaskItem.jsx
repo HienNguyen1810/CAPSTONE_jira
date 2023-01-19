@@ -41,6 +41,9 @@ const TaskItem = (props) => {
 	const taskStatusSelector = useSelector(taskStatus);
 	const projectDetailSelector = useSelector(projectDetail);
 
+	const timeSpentWatching = Form.useWatch('timeTrackingSpent', formInstant);
+	const timeOriginWatching = Form.useWatch('originalEstimate', formInstant);
+
 	const dispatch = useDispatch();
 	const deleteTask = (e) => {
 		e.stopPropagation();
@@ -85,7 +88,18 @@ const TaskItem = (props) => {
 	};
 	const handleOk = () => {
 		const value = formInstant.getFieldsValue();
-
+		if (timeOriginWatching - timeSpentWatching <= 0) {
+			notification.error({
+				message: 'Please input time tracking spent less than time origin!',
+			});
+			return;
+		}
+		if (timeSpentWatching === 0) {
+			notification.error({
+				message: 'Time tracking spent not less than 0!',
+			});
+			return;
+		}
 		const mappingValue = {
 			...value,
 			projectId: projectDetailSelector.id,
@@ -105,7 +119,7 @@ const TaskItem = (props) => {
 					})
 					.catch((error) => {
 						notification.error({
-							message: error || 'Edit Project failed!',
+							message: error || 'Edit Task failed!',
 						});
 					});
 
@@ -113,7 +127,7 @@ const TaskItem = (props) => {
 			})
 			.catch((error) => {
 				notification.error({
-					message: error || 'Edit Project failed!',
+					message: error || 'Edit Task failed!',
 				});
 			});
 	};
@@ -123,6 +137,23 @@ const TaskItem = (props) => {
 
 	const handleEditorChange = (content, editor) => {
 		setContentEditor(content);
+	};
+	const changeTimeSpent = (value) => {
+		if (value === 0) {
+			notification.error({
+				message: 'Time tracking spent not less than 0!',
+			});
+			return;
+		}
+		if (timeOriginWatching - value <= 0) {
+			notification.error({
+				message: 'Please input time tracking spent less than time origin!',
+			});
+			return;
+		}
+		const timeRemaining = timeOriginWatching - value;
+
+		formInstant.setFieldsValue({ timeTrackingRemaining: timeRemaining });
 	};
 	return (
 		<>
@@ -320,7 +351,10 @@ const TaskItem = (props) => {
 									},
 								]}
 							>
-								<InputNumber style={{ width: '100%' }} />
+								<InputNumber
+									style={{ width: '100%' }}
+									onChange={changeTimeSpent}
+								/>
 							</Form.Item>
 						</Col>
 						<Col span={8}>

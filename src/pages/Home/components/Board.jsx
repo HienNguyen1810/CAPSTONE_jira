@@ -16,9 +16,10 @@ const Board = ({ projectDetailSelector }) => {
 	const dispatch = useDispatch();
 	const onDragEnd = (value) => {
 		const { destination, source, draggableId } = value;
+
 		const newProjectDetail = cloneDeep(projectDetailSelector);
 		if (
-			(destination.droppableId === source.droppableId &&
+			(destination?.droppableId === source.droppableId &&
 				destination.index === source.index) ||
 			!destination
 		)

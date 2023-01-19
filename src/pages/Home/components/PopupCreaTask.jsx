@@ -34,6 +34,9 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 	const taskPrioritySelector = useSelector(taskPriority);
 	const taskStatusSelector = useSelector(taskStatus);
 
+	const timeSpentWatching = Form.useWatch('timeTrackingSpent', formInstant);
+	const timeOriginWatching = Form.useWatch('originalEstimate', formInstant);
+
 	const dispatch = useDispatch();
 
 	const showDrawer = () => {
@@ -51,6 +54,18 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 	};
 
 	const submitForm = (value) => {
+		if (timeOriginWatching - timeSpentWatching <= 0) {
+			notification.error({
+				message: 'Please input time tracking spent less than time origin!',
+			});
+			return;
+		}
+		if (timeSpentWatching === 0) {
+			notification.error({
+				message: 'Time tracking spent not less than 0!',
+			});
+			return;
+		}
 		const { projectName, ...restFormValue } = value;
 		const params = {
 			...restFormValue,
@@ -75,6 +90,24 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 					message: error || 'Create Project failed!',
 				});
 			});
+	};
+
+	const changeTimeSpent = (value) => {
+		if (value === 0) {
+			notification.error({
+				message: 'Time tracking spent not less than 0!',
+			});
+			return;
+		}
+		if (timeOriginWatching - value <= 0) {
+			notification.error({
+				message: 'Please input time tracking spent less than time origin!',
+			});
+			return;
+		}
+		const timeRemaining = timeOriginWatching - value;
+
+		formInstant.setFieldsValue({ timeTrackingRemaining: timeRemaining });
 	};
 	return (
 		<>
@@ -219,7 +252,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 										},
 									]}
 								>
-									<InputNumber style={{ width: '100%' }} />
+									<InputNumber style={{ width: '100%' }} min={0} />
 								</Form.Item>
 							</Col>
 							<Col span={8}>
@@ -233,7 +266,11 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 										},
 									]}
 								>
-									<InputNumber style={{ width: '100%' }} />
+									<InputNumber
+										style={{ width: '100%' }}
+										min={0}
+										onChange={changeTimeSpent}
+									/>
 								</Form.Item>
 							</Col>
 							<Col span={8}>
@@ -247,7 +284,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 										},
 									]}
 								>
-									<InputNumber style={{ width: '100%' }} />
+									<InputNumber style={{ width: '100%' }} readOnly />
 								</Form.Item>
 							</Col>
 							<Col span={24}>

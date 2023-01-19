@@ -22,6 +22,11 @@ export const EditDeleteProject = ({ record }) => {
 
 	const cateSelector = useSelector(projectCategory);
 	const onDeleteProject = (id) => {
+		const idUser = JSON.parse(localStorage.getItem('idUser'));
+		if (record.creator.id.toString() !== idUser.toString()) {
+			notification.error({ message: 'User is unthorization!' });
+			return;
+		}
 		dispatch(deleteProjectApi(id))
 			.unwrap()
 			.then((originalPromiseResult) => {
@@ -34,6 +39,11 @@ export const EditDeleteProject = ({ record }) => {
 			});
 	};
 	const showDrawer = () => {
+		const idUser = JSON.parse(localStorage.getItem('idUser'));
+		if (record.creator.id.toString() !== idUser.toString()) {
+			notification.error({ message: 'User is unthorization!' });
+			return;
+		}
 		setOpen(true);
 		dispatch(getProjectDetail(record?.id))
 			.unwrap()
