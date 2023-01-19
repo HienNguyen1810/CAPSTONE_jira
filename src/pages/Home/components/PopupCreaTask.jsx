@@ -62,7 +62,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 			});
 			return;
 		}
-		if (timeSpentWatching === 0) {
+		if (timeSpentWatching < 0) {
 			notification.error({
 				message: 'Time tracking spent not less than 0!',
 			});
@@ -94,7 +94,7 @@ export const PopupCreaTask = ({ projectDetailSelector }) => {
 	};
 
 	const changeTimeSpent = (value) => {
-		if (value === 0) {
+		if (value < 0) {
 			notification.error({
 				message: 'Time tracking spent not less than 0!',
 			});
