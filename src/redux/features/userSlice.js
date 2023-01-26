@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 import userService from '../../apis/userApi';
 
 export const getUserSearchKey = createAsyncThunk(
@@ -18,6 +19,30 @@ export const fetchUserByProjectId = createAsyncThunk(
 	async (params, { _signal, _dispatch, rejectWithValue }) => {
 		try {
 			const response = await userService.getUserByProId(params);
+			return response.data.content;
+		} catch (error) {
+			return rejectWithValue(error.response.data.content);
+		}
+	}
+);
+
+export const deleteUserApi = createAsyncThunk(
+	'user/remove-user',
+	async (params, { rejectWithValue }) => {
+		try {
+			const response = await userService.deleteUser(params);
+			return response.data.content;
+		} catch (error) {
+			return rejectWithValue(error.response.data.content);
+		}
+	}
+);
+
+export const updateUserDetail = createAsyncThunk(
+	'project/update-user-detail',
+	async (params, { rejectWithValue }) => {
+		try {
+			const response = await userService.updateUser(params);
 			return response.data.content;
 		} catch (error) {
 			return rejectWithValue(error.response.data.content);
@@ -46,5 +71,12 @@ export const userSlice = createSlice({
 
 export const userLoading = (state) => state.userReducer.status;
 export const userList = (state) => state.userReducer.userList;
+
+export const userListMapping = createSelector(userList, (userList) => {
+	return userList?.map((item) => ({
+		...item,
+		key: item.userId,
+	}));
+});
 
 export default userSlice.reducer;

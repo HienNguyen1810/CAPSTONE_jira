@@ -1,3 +1,4 @@
+import { isEmpty, isNull } from 'lodash';
 import axiosClient from './axiosClient';
 
 const userService = {
@@ -11,10 +12,21 @@ const userService = {
 		return axiosClient.post('Users/facebooklogin', data);
 	},
 	getUserByKeyword: (data) => {
-		return axiosClient.get(`Users/getUser?keyword=${data}`);
+		return axiosClient.get(`Users/getUser`, {
+			...(isNull(data) &&
+				isEmpty(data) && {
+					keyword: data,
+				}),
+		});
 	},
 	getUserByProId: (projectID) => {
 		return axiosClient.get(`Users/getUserByProjectId?idProject=${projectID}`);
+	},
+	updateUser: (data) => {
+		return axiosClient.put(`Users/editUser`, data);
+	},
+	deleteUser: (userId) => {
+		return axiosClient.delete(`Users/deleteUser?id=${userId}`);
 	},
 };
 export default userService;

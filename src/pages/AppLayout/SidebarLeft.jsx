@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoCreateOutline } from 'react-icons/io5';
+import { IoCreateOutline, IoPeople } from 'react-icons/io5';
 import { SiGoogletagmanager } from 'react-icons/si';
 import { NavLink } from 'react-router-dom';
 
@@ -40,6 +40,14 @@ const SidebarLeft = () => {
 				>
 					<IoCreateOutline size={20} />
 					<span className="font-semibold">Create Project</span>
+				</NavLink>
+				<NavLink
+					to="/user"
+					className="pl-4 flex items-center gap-3 py-4"
+					style={({ isActive }) => (isActive ? activeStyle : undefined)}
+				>
+					<IoPeople size={20} />
+					<span className="font-semibold">User Management</span>
 				</NavLink>
 			</div>
 		</div>

@@ -10,6 +10,7 @@ const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const CreateProject = lazy(() => import('./pages/CreateProject'));
 const ProjectManagement = lazy(() => import('./pages/ProjectManagement'));
+const UserManagement = lazy(() => import('./pages/UserManagement'));
 
 function App() {
 	return (
@@ -31,6 +32,12 @@ function App() {
 			<Route element={<ProtectedRoute />}>
 				<Route path="/" element={<AppLayout />}>
 					<Route path="create-project" element={<CreateProject />} />
+				</Route>
+			</Route>
+
+			<Route element={<ProtectedRoute />}>
+				<Route path="/" element={<AppLayout />}>
+					<Route path="user" element={<UserManagement />} />
 				</Route>
 			</Route>
 
