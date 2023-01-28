@@ -13,10 +13,12 @@ const userService = {
 	},
 	getUserByKeyword: (data) => {
 		return axiosClient.get(`Users/getUser`, {
-			...(!isNull(data) &&
-				!isEmpty(data) && {
-					keyword: data,
-				}),
+			params: {
+				...(!isNull(data) &&
+					!isEmpty(data.trim()) && {
+						keyword: data.trim(),
+					}),
+			},
 		});
 	},
 	getUserByProId: (projectID) => {
