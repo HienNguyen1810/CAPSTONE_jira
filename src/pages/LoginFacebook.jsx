@@ -6,7 +6,6 @@ import { notification } from 'antd';
 import useAuth from '../hooks/use-auth';
 import userService from '../apis/userApi';
 
-
 function LoginFacebook() {
 	const { setAuth } = useAuth();
 	const navigate = useNavigate();
@@ -29,7 +28,12 @@ function LoginFacebook() {
 					JSON.stringify(res.data.content.accessToken)
 				);
 				localStorage.setItem('email', JSON.stringify(res.data.content.email));
-				localStorage.setItem('idUser', JSON.stringify(values.content.id));
+				userService.getUserByKeyword(res.data.content.email).then((res) => {
+					localStorage.setItem(
+						'idUser',
+						JSON.stringify(res.data.content[0].id)
+					);
+				});
 				setAuth({ email: res.data.content.email });
 				navigate(from, { replace: true, state: '' });
 			});
