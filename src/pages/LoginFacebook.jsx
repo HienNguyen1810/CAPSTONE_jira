@@ -36,7 +36,7 @@ function LoginFacebook() {
 	return (
 		<div>
 			<ReactFacebookLogin
-				appId="532237022311215"
+				appId="1290683881502110"
 				autoLoad={false}
 				fields="name,email,picture"
 				callback={responseFacebook}
