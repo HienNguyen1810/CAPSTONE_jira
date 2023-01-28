@@ -29,7 +29,8 @@ function LoginFacebook() {
 				);
 				const email = res.data.content.email;
 				localStorage.setItem('email', JSON.stringify(email));
-				userService.getUserByKeyword(email).then((res) => {
+				userService.getUserByKeyword(email?.slice('.')[0]).then((res) => {
+					console.log(res);
 					localStorage.setItem(
 						'idUser',
 						JSON.stringify(res.data.content[0].id)
