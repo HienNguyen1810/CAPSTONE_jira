@@ -6,16 +6,9 @@ import { Popover } from 'antd';
 import { AutoComplete } from 'antd';
 import { notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import {
-	assignUser,
-	getProjectList,
-	removeUserFromProject,
-} from '../../../redux/features/projectSlice';
-import {
-	fetchUserByProjectId,
-	getUserSearchKey,
-	userList,
-} from '../../../redux/features/userSlice';
+import { assignUser, getProjectList, removeUserFromProject } from '../../../redux/features/projectSlice';
+import { fetchUserByProjectId, getUserByKeyword, userList } from '../../../redux/features/userSlice';
+
 
 const AssignUser = ({ members, projectId }) => {
 	return (
@@ -112,7 +105,7 @@ const MemberListAssign = ({ projectId }) => {
 			clearTimeout(searchRef.current);
 		}
 		searchRef.current = setTimeout(() => {
-			dispatch(getUserSearchKey(value));
+			dispatch(getUserByKeyword(value));
 		}, 300);
 	};
 	const handleSelect = (value, option) => {

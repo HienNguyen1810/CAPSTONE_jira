@@ -16,7 +16,7 @@ import {
 } from 'lodash';
 import {
 	deleteUserApi,
-	getUserSearchKey,
+	getUserByKeyword,
 	updateUserDetail,
 } from '../../../redux/features/userSlice';
 
@@ -36,7 +36,7 @@ export const EditDeleteUser = ({ record }) => {
 		dispatch(deleteUserApi(id))
 			.unwrap()
 			.then((_originalPromiseResult) => {
-				dispatch(getUserSearchKey());
+				dispatch(getUserByKeyword());
 				notification.success({ message: 'Delete user successfully!' });
 			})
 			.catch((error) => {
@@ -67,7 +67,7 @@ export const EditDeleteUser = ({ record }) => {
 		);
 
 		if (isEmpty(result)) {
-			dispatch(getUserSearchKey());
+			dispatch(getUserByKeyword());
 			onClose();
 			notification.success({ message: "Don't have any update!" });
 			return;
@@ -82,7 +82,7 @@ export const EditDeleteUser = ({ record }) => {
 		dispatch(updateUserDetail(params))
 			.unwrap()
 			.then((_originalPromiseResult) => {
-				dispatch(getUserSearchKey());
+				dispatch(getUserByKeyword());
 				onClose();
 				notification.success({ message: 'Edit User successfully!' });
 			})

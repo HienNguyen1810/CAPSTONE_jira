@@ -15,8 +15,8 @@ const userService = {
 		return axiosClient.get(`Users/getUser`, {
 			params: {
 				...(!isNull(data) &&
-					!isEmpty(data.trim()) && {
-						keyword: data.trim(),
+					!isEmpty(data) && {
+						keyword: data,
 					}),
 			},
 		});

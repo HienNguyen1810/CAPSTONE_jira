@@ -7,7 +7,7 @@ import { Input } from 'antd';
 import { Image } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import {
-	getUserSearchKey,
+	getUserByKeyword,
 	userListMapping,
 } from '../../../redux/features/userSlice';
 import { EditDeleteUser } from './EditDeleteUser';
@@ -17,7 +17,7 @@ export const UserManagementTable = () => {
 	const searchInput = useRef(null);
 	const dispatch = useDispatch();
 	const handleSearch = (selectedKeys) => {
-		dispatch(getUserSearchKey(selectedKeys));
+		dispatch(getUserByKeyword(selectedKeys));
 	};
 
 	const getColumnSearchProps = (dataIndex) => ({

@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createSelector } from '@reduxjs/toolkit';
 import userService from '../../apis/userApi';
 
-export const getUserSearchKey = createAsyncThunk(
-	'user/get-user-search-key',
-	async (value, { rejectWithValue }) => {
+export const getUserByKeyword = createAsyncThunk(
+	'user/get-user-by-keyword',
+	async (_value, { rejectWithValue }) => {
 		try {
-			const response = await userService.getUserByKeyword(value);
+			const response = await userService.getUserByKeyword();
 			return response.data.content;
 		} catch (error) {
 			return rejectWithValue(error.response.data.content);
@@ -59,10 +59,10 @@ export const userSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getUserSearchKey.pending, (state, _action) => {
+			.addCase(getUserByKeyword.pending, (state, _action) => {
 				state.status = 'loading';
 			})
-			.addCase(getUserSearchKey.fulfilled, (state, action) => {
+			.addCase(getUserByKeyword.fulfilled, (state, action) => {
 				state.userList = action.payload;
 				state.status = 'idle';
 			});
