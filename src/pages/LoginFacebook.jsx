@@ -27,14 +27,15 @@ function LoginFacebook() {
 					'token',
 					JSON.stringify(res.data.content.accessToken)
 				);
-				localStorage.setItem('email', JSON.stringify(res.data.content.email));
-				userService.getUserByKeyword(res.data.content.email).then((res) => {
+				const email = res.data.content.email;
+				localStorage.setItem('email', JSON.stringify(email));
+				userService.getUserByKeyword(email).then((res) => {
 					localStorage.setItem(
 						'idUser',
 						JSON.stringify(res.data.content[0].id)
 					);
 				});
-				setAuth({ email: res.data.content.email });
+				setAuth({ email });
 				navigate(from, { replace: true, state: '' });
 			});
 	};
